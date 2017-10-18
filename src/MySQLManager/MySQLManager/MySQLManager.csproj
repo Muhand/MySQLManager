@@ -2,6 +2,23 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Authors>Muhand Jumah</Authors>
+    <Company>Muhand Jumah</Company>
+    <Description>This library will allow users to manager their database easily
+The user will be able to do CRUD (Create, Read, Update and Delete) operations
+with ease. The user will have to make 1 function call and thats it.
+Users can also subscribe to events to get notifications back.</Description>
+    <Copyright>Muhand Jumah</Copyright>
+    <PackageProjectUrl>https://github.com/Muhand/MySQLManager</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Muhand/MySQLManager</RepositoryUrl>
+    <RepositoryType>Github</RepositoryType>
+    <PackageTags>MySql, SQL, Manager, MySQLManager</PackageTags>
+    <NeutralLanguage>en</NeutralLanguage>
+    <PackageReleaseNotes>Current Support:
+      - Basic CRUD (Create, Read, Update and Delete) operations
+      - Create custom query</PackageReleaseNotes>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
 
   <ItemGroup>

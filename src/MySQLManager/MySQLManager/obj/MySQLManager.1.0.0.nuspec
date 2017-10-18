@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>MySQLManager</id>
+    <version>1.0.0</version>
+    <authors>Muhand Jumah</authors>
+    <owners>Muhand Jumah</owners>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <projectUrl>https://github.com/Muhand/MySQLManager</projectUrl>
+    <description>This library will allow users to manager their database easily
+The user will be able to do CRUD (Create, Read, Update and Delete) operations
+with ease. The user will have to make 1 function call and thats it.
+Users can also subscribe to events to get notifications back.</description>
+    <releaseNotes>Current Support:
+      - Basic CRUD (Create, Read, Update and Delete) operations
+      - Create custom query</releaseNotes>
+    <copyright>Muhand Jumah</copyright>
+    <tags>MySql, SQL, Manager, MySQLManager</tags>
+    <repository type="Github" url="https://github.com/Muhand/MySQLManager" />
+    <dependencies>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="MySql.Data" version="6.9.9" exclude="Build,Analyzers" />
+      </group>
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="D:\github\MySQLManager\src\MySQLManager\MySQLManager\bin\Release\netstandard2.0\MySQLManager.dll" target="lib\netstandard2.0\MySQLManager.dll" />
+  </files>
+</package>

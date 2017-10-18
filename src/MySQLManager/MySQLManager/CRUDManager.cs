@@ -1,19 +1,25 @@
-﻿using System;
+﻿/**************************************************/
+/*                  Muhand Jumah
+ *               CRUDManager V1.0.0
+ * This library will allow users to manager their database easily
+ * The user will be able to do CRUD (Create, Read, Update and Delete) operations
+ * with ease. The user will have to make 1 function call and thats it.
+ * Users can also subscribe to events to get notifications back.
+ * ************************************************/
+using System;
 using System.Collections.Generic;
-using System.Text;
 using MySql.Data.MySqlClient;
 using MySQLManager.Helpers;
 using MySQLManager.EventArguments;
 using System.Linq;
 using MySQLManager.Enums;
-using System.ComponentModel;
 
 namespace MySQLManager
 {
     public sealed class CRUDManager : IDisposable
     {
         #region Properties
-
+        public bool IsDisposed { get; private set; }
         #endregion
 
         #region Events
@@ -24,10 +30,13 @@ namespace MySQLManager
         public event EventHandler CreatedSuccessfully;
         public event EventHandler<FailedToCreateEventArgs> FailedToCreate;
         public event EventHandler ReadSuccessfully;
+        public event EventHandler<FailedToReadEventArgs> FailedToRead;
         public event EventHandler UpdatedSuccessfully;
         public event EventHandler<FailedToUpdateEventArgs> FailedToUpdate;
         public event EventHandler DeletedSuccessfully;
         public event EventHandler<FailedToDeleteEventArgs> FailedToDelete;
+        public event EventHandler CustomQueryExecutedSuccessfully;
+        public event EventHandler<FailedToExecuteCustomQueryEventArgs> FailedToExecuteCustomQuery;
         #endregion
 
         #region Global Variables
@@ -36,8 +45,6 @@ namespace MySQLManager
         private string database;
         private string username;
         private string password;
-
-        private bool IsDisposed;
         #endregion
 
         #region Constructor(s)
@@ -179,6 +186,28 @@ namespace MySQLManager
             eventHandler?.Invoke(this, args);
         }
 
+        // <summary>
+        /// Raise an event
+        /// </summary>
+        /// <param name="eventHandler">The event you would like to raise</param>
+        /// <param name="args">The event arguments</param>
+        private void RaiseAnEvent(EventHandler<FailedToReadEventArgs> eventHandler, FailedToReadEventArgs args)
+        {
+            //If event is not null then raise it
+            eventHandler?.Invoke(this, args);
+        }
+
+        // <summary>
+        /// Raise an event
+        /// </summary>
+        /// <param name="eventHandler">The event you would like to raise</param>
+        /// <param name="args">The event arguments</param>
+        private void RaiseAnEvent(EventHandler<FailedToExecuteCustomQueryEventArgs> eventHandler, FailedToExecuteCustomQueryEventArgs args)
+        {
+            //If event is not null then raise it
+            eventHandler?.Invoke(this, args);
+        }
+
 
         /// <summary>
         /// Raise an event
@@ -282,12 +311,162 @@ namespace MySQLManager
 
         }
 
-
-        public void Read()
+        /// <summary>
+        /// Read all records from table
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <returns></returns>
+        public List<List<string>> Read(string tablename)
         {
-
+            //Create this variable to avoid ambiguous calls
+            string[] temp = null;
+            return Read(tablename, temp);
         }
 
+        /// <summary>
+        /// Read specific columns from table
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <param name="colsNames">Columns names</param>
+        /// <returns></returns>
+        public List<List<string>> Read(string tablename, params string[] colsNames)
+        {
+            return (ExecuteRead(tablename, colsNames, null));
+        }
+
+        /// <summary>
+        /// Read all records of a table based on conditions
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <param name="conditions">All conditions</param>
+        /// <returns></returns>
+        public List<List<string>> Read(string tablename, Field[] conditions)
+        {
+            return Read(tablename, conditions, null);
+        }
+
+        /// <summary>
+        /// Read specific columns and cells using conditions
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <param name="conditions">All conditions</param>
+        /// <param name="colsNames">Columns names</param>
+        /// <returns>Returns a multidimensional list where it will contain rows->columns</returns>
+        public List<List<string>> Read(string tablename, Field[] conditions, params string[] colsNames)
+        {
+            return (ExecuteRead(tablename, colsNames, conditions));
+        }
+
+        private List<List<string>> ExecuteRead(string tablename, string[] colsNames, Field[] conditions)
+        {
+            //If the table name is empty then raise an event and return null
+            if (tablename == null || tablename == "")
+            {
+                RaiseAnEvent(FailedToRead, new FailedToReadEventArgs(Enums.FailedToRead.EmptyTableName));
+                return null;
+            }
+
+            //Local variables
+            bool readingAll = false;
+            string query = "";
+            //Create a 2D list to hold our rows and columns
+            List<List<string>> res = new List<List<string>>();
+
+            //If the number of Columns is 0 or null then set query to start reading all columns
+            if (colsNames == null || colsNames.Length == 0)
+                readingAll = true;
+
+            //If we are reading all the columns then set a query to read all
+            if (readingAll)
+                query = String.Format("SELECT * FROM {0}", tablename);
+            else
+            {
+                //Otherwise start building up the query by Columns
+                string tempCols = "";
+
+                foreach (var item in colsNames)
+                {
+                    //Append the columns together
+                    tempCols += String.Format("{0},", item);
+                }
+
+                //Filter tempCols by removing the last character which would be "," because of the previous loop
+                string cols = tempCols.Remove(tempCols.Length - 1, 1) + "";
+
+                //Build up the query
+                query = String.Format("SELECT {0} FROM {1}", cols, tablename);
+            }
+
+            //Check if we have any conditions then append them to the query
+            if(conditions != null && conditions.Length > 0)
+            {
+                //Make local variable to hold conditions
+                string tempConds = "";
+
+                //Append all conditions
+                foreach (var item in conditions)
+                    tempConds += String.Format("{0} AND",item.Formatted);
+
+                //Format conditions
+                //string conds = tempConds.Remove(tempConds.Length - 4, 1) + "";
+                string conds = tempConds.Substring(0,tempConds.Length-4);
+
+                //Append the conditions
+                query += String.Format(" WHERE {0}", conds);
+            }
+
+
+            //Check if connection is open
+            if (this.OpenConnection() == true)
+            {
+                try
+                {
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                    //Create a data reader and execute the command
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //This variable will count number of rows being read so far
+                    int rowsCounter = 0;
+
+                    while (dataReader.Read())
+                    {
+                        //Every time we read a new row, create a list to hold the columns of that row
+                        res.Add(new List<string>());
+
+                        //Loop through the number of columns
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                            //Add the columns into the row list
+                            res[rowsCounter].Add(dataReader.GetString(i));
+
+                        rowsCounter++;
+                    }
+
+                    //Close dataReader
+                    dataReader.Close();
+
+                    RaiseAnEvent(ReadSuccessfully, EventArgs.Empty);
+                }
+                catch (MySqlException ex)
+                {
+                    RaiseAnEvent(FailedToRead, new FailedToReadEventArgs(Enums.FailedToRead.MySQLException, ex));
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
+
+            }
+            else
+            {
+                RaiseAnEvent(FailedToRead, new FailedToReadEventArgs(Enums.FailedToRead.ConnectionWasNotOpen));
+                return null;
+            }
+
+            return res;
+        }
+        
         /// <summary>
         /// Update a table
         /// </summary>
@@ -391,6 +570,12 @@ namespace MySQLManager
             }
         }
 
+        /// <summary>
+        /// Update a table - This function is different because it accepts AssignmentList instead of Field[] for conditions and fields
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <param name="assignmentList">The fields you would like to update</param>
+        /// <param name="conditions">The conditions that must be met in order to Update</param>
         public void Update(string tablename, AssignmentList assignmentList, AssignmentList conditions)
         {
             Field[] fields = assignmentList.Fields;
@@ -465,13 +650,150 @@ namespace MySQLManager
             }
         }
 
+        /// <summary>
+        /// Delete row(s) from a table
+        /// </summary>
+        /// <param name="tablename">Table name</param>
+        /// <param name="conditions">The conditions that must be met in order to delete; this function accepts AssignmentList as a paramer instead of Field[]</param>
         public void Delete(string tablename, AssignmentList conditions)
         {
             Field[] conds = conditions.Fields;
             Delete(tablename, conds);
         }
 
+        /// <summary>
+        /// Create a custom query and then execute it using this function
+        /// By default this function will execute queries using ExecuteNonQuery();
+        /// If you would like to use something else then please use ExecuteCustomQuery(query, ExecutionOptions) to use a different option
+        /// </summary>
+        /// <param name="query">The query</param>
+        public void ExecuteCustomQuery(string query)
+        {
+            ExecuteCustomQuery(query, ExecutionOptions.ExecuteNonQuery);
+        }
 
+        /// <summary>
+        /// Create a custom query and then execute it using this function with a specific ExecutionOption (e.g. ExecuteNonQuery, ExecuteScalar)
+        /// </summary>
+        /// <param name="query">The query</param>
+        /// <param name="executionOption">The execution option</param>
+        public void ExecuteCustomQuery(string query, ExecutionOptions executionOption)
+        {
+            if (query == null || query == "")
+            {
+                RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(FailedToExecute.NullQuery));
+                return;
+            }
+
+            if (OpenConnection() == true)
+            {
+                try
+                {
+                    //Create a command and assign the query and connection to it
+                    MySqlCommand cmd = new MySqlCommand(query, this.connection);
+
+                    switch (executionOption)
+                    {
+                        case ExecutionOptions.ExecuteNonQuery:
+                            //Execute command
+                            cmd.ExecuteNonQuery();
+                            break;
+                        case ExecutionOptions.ExecuteReader:
+                            throw new Exception("If you are going to execute Reader then please add the 3rd paramter, where you have to provide a list to return results to.");
+                            break;
+                        case ExecutionOptions.ExecuteScalar:
+                            //Execute command
+                            cmd.ExecuteScalar();
+                            break;
+                        default:
+                            RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(FailedToExecute.UnknownExecutionOption));
+                            break;
+                    }
+
+                    //Raise an event that execution was successful
+                    RaiseAnEvent(CustomQueryExecutedSuccessfully, EventArgs.Empty);
+                }
+                catch (MySqlException ex)
+                {
+                    RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(FailedToExecute.MySQLException, ex));
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
+            }
+            else
+            {
+                RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(FailedToExecute.ConnectionWasNotOpen));
+                return;
+            }
+        }
+        
+        /// <summary>
+        /// Create a custom query where you will be using ExecutionOptions.ExecuteRead, this is different because you must provide an output list
+        /// </summary>
+        /// <param name="query">The query</param>
+        /// <param name="executionOption">The execution option</param>
+        /// <param name="outputList">The list in which what is read will be returned to</param>
+        public void ExecuteCustomQuery(string query, ExecutionOptions executionOption, out List<List<string>> outputList)
+        {
+            if(executionOption != ExecutionOptions.ExecuteReader)
+            {
+                throw new Exception("If you are going to use anything other than ExecutionOptions.ExecuteReader then please remove the last paramter");
+                return;
+            }
+
+            //Create a 2D list to hold our rows and columns
+            List<List<string>> res = new List<List<string>>();
+
+            //Check if connection is open
+            if (this.OpenConnection() == true)
+            {
+                try
+                {
+                    //Create command
+                    MySqlCommand cmd = new MySqlCommand(query, connection);
+
+                    //Create a data reader and execute the command
+                    MySqlDataReader dataReader = cmd.ExecuteReader();
+
+                    //This variable will count number of rows being read so far
+                    int rowsCounter = 0;
+
+                    while (dataReader.Read())
+                    {
+                        //Every time we read a new row, create a list to hold the columns of that row
+                        res.Add(new List<string>());
+
+                        //Loop through the number of columns
+                        for (int i = 0; i < dataReader.FieldCount; i++)
+                            //Add the columns into the row list
+                            res[rowsCounter].Add(dataReader.GetString(i));
+
+                        rowsCounter++;
+                    }
+
+                    //Close dataReader
+                    dataReader.Close();
+
+                    RaiseAnEvent(CustomQueryExecutedSuccessfully, EventArgs.Empty);
+                }
+                catch (MySqlException ex)
+                {
+                    RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(Enums.FailedToExecute.MySQLException, ex));
+                }
+                finally
+                {
+                    this.CloseConnection();
+                }
+            }
+            else
+            {
+                RaiseAnEvent(FailedToExecuteCustomQuery, new FailedToExecuteCustomQueryEventArgs(Enums.FailedToExecute.ConnectionWasNotOpen));
+            }
+
+            outputList = res;
+        }
         #endregion
 
         #region Clean Up
@@ -482,7 +804,8 @@ namespace MySQLManager
             //As long as the object is still not disposed
             if(!this.IsDisposed)
             {
-
+                this.IsDisposed = true;
+                this.connection.Dispose();
             }
         }
         #endregion
