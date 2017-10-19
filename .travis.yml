@@ -3,4 +3,4 @@ solution: src/MySQLManager/MySQLManager.sln
 before_script:
   - nuget restore src/MySQLManager/MySQLManager.sln
 script:
-- xbuild /p:Configuration=Release src/MySQLManager/MySQLManager.sln
+- xbuild /p:Configuration=Debug src/MySQLManager/MySQLManager.sln
