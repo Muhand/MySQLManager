@@ -98,3 +98,7 @@ See [ExecuteCustomQuery](https://github.com/Muhand/MySQLManager/blob/Development
 ## API
 
 Please check the [API page](https://github.com/Muhand/MySQLManager/wiki/API-Documentation) in the [WIKI](https://github.com/Muhand/MySQLManager/wiki) for more information,
+
+## Need Help? Found a bug?
+
+If you went through our [API WIKI](https://github.com/Muhand/MySQLManager/wiki/API-Documentation) and you still seem to have troubles or there is a bug in the API then please don't hesitate to [Submit an issue](https://github.com/Muhand/MySQLManager/issues) and cc @Muhand. And, also of course, feel free to submit pull requests with bug fixes or changes (If you don't wish to be credited let me know).
