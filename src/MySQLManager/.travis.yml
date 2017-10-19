@@ -1,6 +1,0 @@
-language: csharp
-solution: MySQLManager.sln
-before_script:
-  - nuget restore
-script:
-- msbuild /p:Configuration=Release MySQLManager.sln

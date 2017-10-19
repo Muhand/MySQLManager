@@ -1,0 +1,6 @@
+language: csharp
+solution: src/MySQLManager/MySQLManager.sln
+before_script:
+  - nuget restore src/MySQLManager
+script:
+- xbuild /p:Configuration=Release src/MySQLManager/MySQLManager.sln
