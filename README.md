@@ -1,6 +1,6 @@
 # MySQLManager [![Build Status](https://travis-ci.org/Muhand/MySQLManager.svg?branch=stable)](https://travis-ci.org/stumpdk/MySql.Server) [![Nuget](https://buildstats.info/nuget/MySqlManager)](http://www.nuget.org/packages/MySQLManager)
 
-MySQL manager for C#
+A cross-platform MySQL database manager for C#
 
 ## Use
 Download with [NuGet](https://www.nuget.org/packages/MySQLManager/), or download the [release](https://github.com/Muhand/MySQLManager/releases) and include **MySQLManager.dll** as a reference in your project.
