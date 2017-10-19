@@ -1,9 +1,0 @@
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\bin\Release\netstandard2.0\MySQLManager.deps.json
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\bin\Release\netstandard2.0\MySQLManager.dll
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\bin\Release\netstandard2.0\MySQLManager.pdb
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.csprojResolveAssemblyReference.cache
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.csproj.CoreCompileInputs.cache
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.AssemblyInfoInputs.cache
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.AssemblyInfo.cs
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.dll
-D:\github\MySQLManager\src\MySQLManager\MySQLManager\obj\Release\netstandard2.0\MySQLManager.pdb
