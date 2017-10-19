@@ -1,0 +1,17 @@
+language: csharp
+#solution: src/MySQLManager/MySQLManager.sln
+before_script:
+  - nuget restore src/MySQLManager
+  - nuget restore Examples/Delete/Delete
+  - nuget restore Examples/ExecuteCustomQuery/ExecuteCustomQuery
+  - nuget restore Examples/Insert
+  - nuget restore Examples/Read/Read
+  - nuget restore Examples/Update/Update
+script:
+  - msbuild /p:Configuration=Release src/MySQLManager
+  - msbuild /p:Configuration=Release Examples/Delete/Delete
+  - msbuild /p:Configuration=Release src/MySQLManager Examples/ExecuteCustomQuery/ExecuteCustomQuery
+  - msbuild /p:Configuration=Release src/MySQLManager Examples/Insert
+  - msbuild /p:Configuration=Release src/MySQLManager Examples/Read/Read
+  - msbuild /p:Configuration=Release src/MySQLManager Examples/Update/Update
+  
