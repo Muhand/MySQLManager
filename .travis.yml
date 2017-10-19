@@ -1,6 +1,6 @@
 language: csharp
 solution: src/MySQLManager/MySQLManager.sln
-before_script:
-  - dotnet restore src/MySQLManager
-script:
-  - msbuild /p:Configuration=Release src/MySQLManager/MySQLManager.sln
+#before_script:
+#  - dotnet restore src/MySQLManager
+#script:
+#  - msbuild /p:Configuration=Release src/MySQLManager/MySQLManager.sln
