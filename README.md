@@ -1,4 +1,4 @@
-# MySQLManager [![Build Status](https://travis-ci.org/stumpdk/MySql.Server.svg?branch=master)](https://travis-ci.org/stumpdk/MySql.Server) [![Nuget](https://buildstats.info/nuget/MySqlManager)](http://www.nuget.org/packages/MySQLManager)
+# MySQLManager [![Build Status](https://travis-ci.org/Muhand/MySQLManager.svg?branch=stable)](https://travis-ci.org/stumpdk/MySql.Server) [![Nuget](https://buildstats.info/nuget/MySqlManager)](http://www.nuget.org/packages/MySQLManager)
 
 MySQL manager for C#
 
