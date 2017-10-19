@@ -1,6 +1,6 @@
 language: csharp
 solution: src/MySQLManager/MySQLManager.sln
 before_script:
-  - dotnet restore MySQLManager.sln
+  - nuget restore src/MySQLManager/MySQLManager.sln
 script:
-- xbuild /p:Configuration=Debug MySQLManager.sln
+- xbuild /p:Configuration=Release src/MySQLManager/MySQLManager.sln
