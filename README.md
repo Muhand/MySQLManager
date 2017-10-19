@@ -21,7 +21,7 @@ MySQLManager makes it possible to Create, Remove, Update and Read data to and fr
 A developer should make use of events to get notifications back, more will be explained in the API and Examples Sections.
 
 ## Examples
-All examples can be found in the [Examples]("/Examples") folder.
+All examples can be found in the [Examples](Examples) folder.
 
 ### Creating data (Inserting data into database)
 See [Insert](https://github.com/Muhand/MySQLManager/blob/Development/Examples/Insert/Insert/Program.cs) for a complete example.
@@ -96,3 +96,5 @@ See [ExecuteCustomQuery](https://github.com/Muhand/MySQLManager/blob/Development
 ```
 
 ## API
+
+Please check the [API page](https://github.com/Muhand/MySQLManager/wiki/API-Documentation) in the [WIKI](https://github.com/Muhand/MySQLManager/wiki) for more information,
