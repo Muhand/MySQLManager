@@ -99,8 +99,6 @@ D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCus
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\bin\Debug\MySQLManager.dll
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\bin\Debug\MySql.Data.dll
-D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\bin\Debug\MySQLManager.pdb
-D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\bin\Debug\MySql.Data.xml
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\obj\Debug\ExecuteCustomQuery.csprojResolveAssemblyReference.cache
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\obj\Debug\ExecuteCustomQuery.csproj.ExecuteCustomQuery.exe.config
 D:\github\MySQLManager\Examples\ExecuteCustomQuery\ExecuteCustomQuery\ExecuteCustomQuery\obj\Debug\ExecuteCustomQuery.csproj.CoreCompileInputs.cache

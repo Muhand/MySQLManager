@@ -99,8 +99,6 @@ D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\System.Xml.XPath.dll
 D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\MySQLManager.dll
 D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\MySql.Data.dll
-D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\MySQLManager.pdb
-D:\github\MySQLManager\Examples\Read\Read\Read\bin\Debug\MySql.Data.xml
 D:\github\MySQLManager\Examples\Read\Read\Read\obj\Debug\Read.csprojResolveAssemblyReference.cache
 D:\github\MySQLManager\Examples\Read\Read\Read\obj\Debug\Read.csproj.Read.exe.config
 D:\github\MySQLManager\Examples\Read\Read\Read\obj\Debug\Read.csproj.CoreCompileInputs.cache

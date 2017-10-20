@@ -15,14 +15,17 @@ Users can also subscribe to events to get notifications back.</Description>
     <RepositoryType>Github</RepositoryType>
     <PackageTags>MySql, SQL, Manager, MySQLManager</PackageTags>
     <NeutralLanguage>en</NeutralLanguage>
-    <PackageReleaseNotes>Current Support:
+    <PackageReleaseNotes>Current Releease 1.1.0:
+      - Support latest framework. Using MySQL.Data v8.0.9-dmr
+Previous Release 1.0.0:
       - Basic CRUD (Create, Read, Update and Delete) operations
       - Create custom query</PackageReleaseNotes>
     <SignAssembly>false</SignAssembly>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MySql.Data" Version="6.9.9" />
+    <PackageReference Include="MySql.Data" Version="8.0.9-dmr" />
   </ItemGroup>
 
 </Project>
