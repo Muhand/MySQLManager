@@ -104,3 +104,6 @@ D:\github\MySQLManager\Examples\Delete\Delete\Delete\obj\Debug\Delete.csproj.Del
 D:\github\MySQLManager\Examples\Delete\Delete\Delete\obj\Debug\Delete.csproj.CoreCompileInputs.cache
 D:\github\MySQLManager\Examples\Delete\Delete\Delete\obj\Debug\Delete.exe
 D:\github\MySQLManager\Examples\Delete\Delete\Delete\obj\Debug\Delete.pdb
+D:\github\MySQLManager\Examples\Delete\Delete\Delete\bin\Debug\Google.Protobuf.dll
+D:\github\MySQLManager\Examples\Delete\Delete\Delete\bin\Debug\Google.Protobuf.xml
+D:\github\MySQLManager\Examples\Delete\Delete\Delete\bin\Debug\MySql.Data.xml
