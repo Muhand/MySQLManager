@@ -99,8 +99,6 @@ D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\System.Xml.XPath.
 D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\System.Xml.XPath.XDocument.dll
 D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\MySQLManager.dll
 D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\MySql.Data.dll
-D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\MySQLManager.pdb
-D:\github\MySQLManager\Examples\Update\Update\Update\bin\Debug\MySql.Data.xml
 D:\github\MySQLManager\Examples\Update\Update\Update\obj\Debug\Update.csprojResolveAssemblyReference.cache
 D:\github\MySQLManager\Examples\Update\Update\Update\obj\Debug\Update.csproj.Update.exe.config
 D:\github\MySQLManager\Examples\Update\Update\Update\obj\Debug\Update.csproj.CoreCompileInputs.cache
