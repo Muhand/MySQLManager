@@ -13,11 +13,12 @@ namespace Insert
     {
         static void Main(string[] args)
         {
-            ConnectionCredentials credentials = new ConnectionCredentials { 
-                Server = "127.0.0.1",
-                Database = "mysqlmanager",
-                Username = "root",
-                Password = ""
+            ConnectionCredentials credentials = new ConnectionCredentials
+            {
+                Server = "www.muhandjumah.com",
+                Database = "muhand5_ls_static",
+                Username = "muhand5_ls_statk",
+                Password = "=Cs_U!JtHFbt"
             };
 
             CRUDManager manager = new CRUDManager(credentials);

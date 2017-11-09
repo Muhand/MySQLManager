@@ -45,6 +45,7 @@ namespace MySQLManager
         private string database;
         private string username;
         private string password;
+        private bool sslRequired;
         #endregion
 
         #region Constructor(s)
@@ -54,6 +55,18 @@ namespace MySQLManager
             this.database = credentials.Database;
             this.username = credentials.Username;
             this.password = credentials.Password;
+            this.sslRequired = false;
+
+            Initialize();
+        }
+
+        public CRUDManager(ConnectionCredentials credentials, bool IsSSLRequired)
+        {
+            this.server = credentials.Server;
+            this.database = credentials.Database;
+            this.username = credentials.Username;
+            this.password = credentials.Password;
+            this.sslRequired = IsSSLRequired;
 
             Initialize();
         }
@@ -63,7 +76,13 @@ namespace MySQLManager
         #region Initializer
         private void Initialize()
         {
-            string connectionString = String.Format("SERVER={0};DATABASE={1};UID={2};PASSWORD={3};",this.server,this.database,this.username,this.password);
+            string connectionString;
+
+            if(!this.sslRequired)
+                connectionString = String.Format(@"SERVER={0};DATABASE={1};UID={2};PASSWORD={3};SslMode=none", this.server,this.database,this.username,this.password);
+            else
+                connectionString = String.Format(@"SERVER={0};DATABASE={1};UID={2};PASSWORD={3};SslMode=Required", this.server, this.database, this.username, this.password);
+
             this.connection = new MySqlConnection(connectionString);
         }
         #endregion
@@ -262,7 +281,7 @@ namespace MySQLManager
             var newRows = columns.columns.Zip(values.values, (n,w)=>new { Column = n, Value= w });
             foreach (var newRow in newRows)
             {
-                tempCols += String.Format("{0},",newRow.Column);
+                tempCols += String.Format("`{0}`,",newRow.Column);
                 tempVals += string.Format("'{0}',",newRow.Value);
             }
 
