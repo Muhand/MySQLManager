@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "MySQLManager/1.1.2": {
+      "MySQLManager/1.1.4": {
         "dependencies": {
           "MySql.Data": "8.0.9-dmr",
           "NETStandard.Library": "2.0.0"
@@ -1314,7 +1314,7 @@
     }
   },
   "libraries": {
-    "MySQLManager/1.1.2": {
+    "MySQLManager/1.1.4": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

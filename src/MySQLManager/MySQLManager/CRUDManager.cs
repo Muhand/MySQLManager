@@ -282,7 +282,13 @@ namespace MySQLManager
             foreach (var newRow in newRows)
             {
                 tempCols += String.Format("`{0}`,",newRow.Column);
-                tempVals += string.Format("'{0}',",newRow.Value);
+
+                var temp = newRow.Value;
+
+                if (newRow.Value.Contains("'"))
+                    temp = newRow.Value.Replace("'", @"\'");
+
+                tempVals += string.Format("'{0}',", temp);
             }
 
             //Do a little bit of cleaning from the previous loop
@@ -294,7 +300,7 @@ namespace MySQLManager
 
             //Create our insert query
             string query = string.Format("INSERT INTO {0} {1} VALUES {2}",tablename,cols,vals);
-
+            
             //Open our connection
             if(this.OpenConnection() == true)
             {
